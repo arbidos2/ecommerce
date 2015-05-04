@@ -53,7 +53,7 @@
 			<div class="products">
 				<div id="row_1">
 					<div class="product">
-						<img src="" alt="prod_image">
+						<img src="http://betanews.com/wp-content/uploads/2014/09/iWatch-004-angle-2.jpg" alt="prod_image">
 						<p>iWatch</p>
 					</div>
 					<div class="product">
