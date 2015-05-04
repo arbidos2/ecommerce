@@ -51,6 +51,74 @@
 				</div>
 			</div>
 			<div class="products">
+<<<<<<< HEAD
+				<div id="row_1">
+					<div class="product">
+						<img src="http://betanews.com/wp-content/uploads/2014/09/iWatch-004-angle-2.jpg" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+				</div>
+				<div id="row_2">
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+				</div>
+				<div id="row_3">
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+					<div class="product">
+						<img src="" alt="prod_image">
+						<p>iWatch</p>
+					</div>
+				</div>
+=======
 				<?php
 					for ($i = 1; $i < 4; $i++){
 						echo
@@ -67,6 +135,7 @@
 						echo '</div>';
 					}
 				?>
+>>>>>>> 67dedfc05531887abc626ed70f4a0e4446fd4a1f
 			</div>
 			<div id="pages">
 				<?php
