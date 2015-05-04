@@ -14,11 +14,7 @@ else
 {
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
-<<<<<<< HEAD
 	$db['default']['password'] = 'root';
-=======
-	$db['default']['password'] = '';
->>>>>>> salshyn
 	$db['default']['database'] = '';
 }
 
