@@ -12,6 +12,11 @@ class Products extends CI_Controller {
 	{
 		$this->load->view('index');
 	}
+
+	public function show()
+	{
+		$this->load->view('show');
+	}
 }
 
 //end of main controller
