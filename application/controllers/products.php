@@ -22,6 +22,11 @@ class Products extends CI_Controller {
 	{
 		
 	}
+
+	public function carts()
+	{
+		$this->load->view('carts');
+	}
 }
 
 //end of main controller
