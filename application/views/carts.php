@@ -27,8 +27,8 @@
 			margin: 2px;
 		}
 		.short {
+            width: 50px;
 			margin: 2px;
-			width: 50px;
 		}
 	</style>
 </head>
