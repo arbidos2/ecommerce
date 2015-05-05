@@ -2,14 +2,14 @@
 
 $autoload['packages'] = array();
 
-$autoload['libraries'] = array('database', 'session');
+$autoload['libraries'] = array('database', 'session', 'form_validation');
 
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url', 'form');
 
 $autoload['config'] = array();
 
 $autoload['language'] = array();
 
-$autoload['model'] = array();
+$autoload['model'] = array('usersmodel');
 
 //end of autoload.php

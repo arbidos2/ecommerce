@@ -2,13 +2,8 @@
 <html>
 <head>
 	<title>Products</title>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/index.css">
 </head>
@@ -51,74 +46,32 @@
 				</div>
 			</div>
 			<div class="products">
-				<div id="row_1">
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-				</div>
-				<div id="row_2">
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-				</div>
-				<div id="row_3">
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-					<div class="product">
-						<img src="" alt="prod_image">
-						<p>iWatch</p>
-					</div>
-				</div>
+				<?php
+					for ($i = 1; $i < 4; $i++){
+						echo
+						'<div id="row_' . $i . '">';
+						for ($j = 1; $j < 6; $j++){
+							echo 
+							'<div class="product">
+								<a href="/products/show">								
+									<img src="assets/image/iWatch.png" alt="prod_image">
+									<p>Apple Watch</p>
+								</a>
+							</div>';
+						}
+						echo '</div>';
+					}
+				?>
 			</div>
-		</div>
+			<div id="pages">
+				<?php
+					for ($i = 1; $i < 11; $i++){
+						echo '<a href="' . $i . '.php">' . $i . '</a> | ';
+					}
+				?>
+				<a href="next.php">-></a>
+			</div> 
+		</div> <!-- End of main division -->
 	</div>
 </body>
 </html>

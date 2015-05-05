@@ -20,7 +20,7 @@
 <div class="container">
     <div class="col-md-6 col-md-offset-3">
         <h1 class="text-center">Admin Login Page</h1>
-        <form>
+        <form action="users/login" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email">
@@ -30,6 +30,7 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary pull-right">Login</button>
+            <?=$this->session->flashdata('errors')?>
         </form>
     </div>
 </div>
