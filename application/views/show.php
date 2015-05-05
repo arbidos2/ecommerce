@@ -16,13 +16,13 @@
 	<div class="container">
 		<div class="header">
 			<h3 id="brand">Dojo eCommerce</h3>
-			<p id="cart_number">Shopping Cart (5)</p>
+			<p id="cart_number">Shopping Cart (4)</p>
 		</div>
 		<div class="main">
 			<div id="product_name">
 				<a href="/">Go Back</a>
 				<h2>Apple Watch</h2>
-			</div>
+			</div>    
 			<div id="product_detail">
 				<div id="images">
 					<img src="<?= base_url(); ?>/assets/image/iWatch.png" alt="product_image">
