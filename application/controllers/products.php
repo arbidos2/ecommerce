@@ -27,10 +27,6 @@ class Products extends CI_Controller {
 	{
 		$this->load->view('carts');
 	}
-
-    public function TESTFUNCTION(){
-        $this->load->view('hahahahahahahahahahahhahahaha');
-    }
 }
 
 //end of main controller
