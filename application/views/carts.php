@@ -7,12 +7,25 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/index.css">
 	<style type="text/css">
-		p {
+		e {
 			text-align: right;
 		}
 		#shop {
 			text-align: right;
 		}
+		.info {
+			width: 200px;
+			display: inline-block;
+		}
+		.info2 {
+			width: 200px;
+			vertical-align: top;
+			display: inline-block;
+		}
+		.box {
+			margin: 2px;
+		}
+
 	</style>
 </head>
 <body>
@@ -34,46 +47,67 @@
 				<tbody class="table table-striped">
 					<td>Black Belt for Staff</td>
 					<td>$19.99</td>
-					<td>1 
-						<a href="">update</a>
+					<td>1 &nbsp;&nbsp;&nbsp;
+						<a href="">update</a>&nbsp;&nbsp;&nbsp;
 						<a href="Products/remove_from_cart"><img src="http://www.londonbiopackaging.com/wp-content/uploads/2014/01/Tidyman.png" width="15"></a></td>
-					<td>Total</td>
+					<td>$19.99</td>
 				</tbody>
 			</table>
-			<p>Total: $49.95</p>
+			<e>Total: $49.95</e>
 			<div id="shop">
 				<button>Continue Shopping</button>
 			</div>	
 		</div>
 		<div>
 			<h4>Shipping Information:</h4>
-			<form action="" method="post" class="form-horizontal">
-				<label class="control-label">First Name:</label><input type="text" name="fname" class="form-control">
-				<label class="control-label">Last Name:</label><input type="text" name="lname" class="form-control">
-				<label class="control-label">Address:</label><input type="text" name="shipping_street" class="form-control">
-				<label class="control-label">Address 2:</label><input type="text" name="shipping_street2" class="form-control">
-				<label class="control-label">City:</label><input type="text" name="shipping_city" class="form-control">
-				<label class="control-label">State:</label><input type="text" name="shipping_state" class="form-control">
-				<label class="control-label">Zipcode:</label><input type="text" name="shipping_zip" class="form-control">
-				<h4>Billing Information:</h4>
-				<input type="checkbox" name="check"> Same as shipping information:
-				<label class="control-label">First Name:</label><input type="text" name="fname" class="form-control">
-				<label class="control-label">Last Name:</label><input type="text" name="lname" class="form-control">
-				<label class="control-label">Address:</label><input type="text" name="billing_street" class="form-control">
-				<label class="control-label">Address 2:</label><input type="text" name="billing_street2" class="form-control">
-				<label class="control-label">City:</label><input type="text" name="billing_city" class="form-control">
-				<label class="control-label">State:</label><input type="text" name="billing_state" class="form-control">
-				<label class="control-label">Zipcode:</label><input type="text" name="billing_zip" class="form-control">
-				<br>
-				<label class="control-label">Card:</label><input type="text" name="card" class="form-control">
-				<label class="control-label">Security Code:</label><input type="text" name="seccode" class="form-control">
-				<label>Expiration:</label>
-			</form>
-			
-		</div>
+			<form action="/Users/" method="post">
+				<div class="info">
+					<p>First Name:</p>
+					<p>Last Name:</p>
+					<p>Address:</p>
+					<p>Address 2:</p>
+					<p>City:</p>
+					<p>State:</p>
+					<p>Zipcode:</p>
+				</div>
+				<div class="info2">
+					<input type="text" name="fname" class="box"><br>
+					<input type="text" name="lname" class="box"><br>
+					<input type="text" name="shipping_street" class="box"><br>
+					<input type="text" name="shipping_street2" class="box"><br>
+					<input type="text" name="shipping_city" class="box"><br>
+					<input type="text" name="shipping_state" class="box"><br>
+					<input type="text" name="shipping_zip" class="box"><br>
+				</div>
+				
+				<h4><strong>Billing Information:</h4>
+				<h6><input type="checkbox" name="check">Same as shipping information:</h6>
 
-		
-		
+				<div class="info">
+					<p>First Name:</p>
+					<p>Last Name:</p>
+					<p>Address:</p>
+					<p>Address 2:</p>
+					<p>City:</p>
+					<p>State:</p>
+					<p>Zipcode:</p>
+					<p>Card:</p>
+					<p>Security code:</p>
+					<p>Expiration:</p>
+				</div>
+				<div class="info2">
+					<input type="text" name="fname" class="box"><br>
+					<input type="text" name="lname" class="box"><br>
+					<input type="text" name="billing_street" class="box"><br>
+					<input type="text" name="billing_street2" class="box"><br>
+					<input type="text" name="billing_city" class="box"><br>
+					<input type="text" name="billing_state" class="box"><br>
+					<input type="text" name="billing_zip" class="box"><br>
+					<input type="text" name="card" class="box">
+					<input type="text" name="seccode" class="box">
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
