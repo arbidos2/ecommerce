@@ -55,7 +55,7 @@
 							'<div class="product">
 								<a href="/products/show">								
 									<img src="assets/image/iWatch.png" alt="prod_image">
-									<p>iWatch</p>
+									<p>Apple Watch</p>
 								</a>
 							</div>';
 						}
