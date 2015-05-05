@@ -17,6 +17,16 @@ class Products extends CI_Controller {
 	{
 		$this->load->view('show');
 	}
+
+	public function getAll()
+	{
+		
+	}
+
+	public function carts()
+	{
+		$this->load->view('carts');
+	}
 }
 
 //end of main controller

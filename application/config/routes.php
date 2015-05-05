@@ -6,5 +6,6 @@ $route['admin/orders'] = "users/orders_route";
 $route['admin/products'] = "users/product_route";
 $route['admin/products/add'] = "users/add_product_route";
 $route['404_override'] = '';
+$route['carts'] = "products/carts";
 
 //end of routes.php
