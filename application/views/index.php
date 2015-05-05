@@ -47,20 +47,28 @@
 			</div>
 			<div class="products">
 				<?php
-					for ($i = 1; $i < 4; $i++){
-						echo
-						'<div id="row_' . $i . '">';
-						for ($j = 1; $j < 6; $j++){
-							echo 
-							'<div class="product">
+					foreach ($products as $product) {
+						echo '<div class="product">
 								<a href="/products/show">								
-									<img src="assets/image/iWatch.png" alt="prod_image">
-									<p>Apple Watch</p>
+									<img src="assets/image/' . $product['image_link'] . '" alt="prod_image">
+									<p>' . $product['name'] . '</p>
 								</a>
 							</div>';
-						}
-						echo '</div>';
 					}
+					// for ($i = 1; $i < 4; $i++){
+					// 	echo
+					// 	'<div id="row_' . $i . '">';
+					// 	for ($j = 1; $j < 6; $j++){
+					// 		echo 
+					// 		'<div class="product">
+					// 			<a href="/products/show">								
+					// 				<img src="assets/image/iwatch.png" alt="prod_image">
+					// 				<p>Apple Watch</p>
+					// 			</a>
+					// 		</div>';
+					// 	}
+					// 	echo '</div>';
+					// }
 				?>
 			</div>
 			<div id="pages">
