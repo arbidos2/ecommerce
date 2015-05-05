@@ -25,7 +25,10 @@
 		.box {
 			margin: 2px;
 		}
-
+		.short {
+			width: 50px;
+			margin: 2px;
+		}
 	</style>
 </head>
 <body>
@@ -105,6 +108,8 @@
 					<input type="text" name="billing_zip" class="box"><br>
 					<input type="text" name="card" class="box">
 					<input type="text" name="seccode" class="box">
+					<input type="text" name="month" class="short"> / <input type="text" name="year" class="short"><br><br>
+					<input type="submit" value="Pay">
 				</div>
 			</form>
 		</div>
