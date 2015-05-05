@@ -4,10 +4,35 @@
 	<title>Products</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script>
+                        $('.demo4_top,.demo4_bottom').bootpag({
+                            total: 50,
+                            page: 2,
+                            maxVisible: 5,
+                            leaps: true,
+                            firstLastUse: true,
+                            first: '<span aria-hidden="true">&larr;</span>',
+                            last: '<span aria-hidden="true">&rarr;</span>',
+                            wrapClass: 'pagination',
+                            activeClass: 'active',
+                            disabledClass: 'disabled',
+                            nextClass: 'next',
+                            prevClass: 'prev',
+                            lastClass: 'last',
+                            firstClass: 'first'
+                        }).on("page", function(event, num){
+                            $(".content4").html("Page " + num); // or some ajax content loading...
+                        }).find('.pagination');
+		
+	</script>
 </head>
 <body>
+<!-- -------------------------------------------------------------------- -->
+
+<!-- -------------------------------------------------------------------- -->
+
 	<div class="container">
 		<div class="header">
 			<h3 id="brand">Dojo eCommerce</h3>
