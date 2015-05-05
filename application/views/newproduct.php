@@ -9,7 +9,7 @@ include('navigation.php');
 ?>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <form>
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="name">
@@ -34,7 +34,7 @@ include('navigation.php');
             </div>
             <div class="form-group">
                 <label for="uploadimage">Upload Images</label>
-                <input type="file" id="uploadimage" name="upload">
+                <input type="file" id="uploadimage" name="userfile">
             </div>
             <button type="submit" class="btn btn-primary">New Product</button>
             <button type="reset" class="btn btn-default pull-right">Cancel</button>

@@ -35,8 +35,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="<?=base_url()?>admin/orders">Orders</a></li>
-                <li><a href="<?=base_url()?>admin/products">Products</a></li>
+                <li <?php echo (uri_string()=='admin/orders')?'class="active"':'class=""'?>><a href="<?=base_url()?>admin/orders">Orders</a></li>
+                <li <?php echo (uri_string()=='admin/products')?'class="active"':'class=""'?>><a href="<?=base_url()?>admin/products">Products</a></li>
                 <li><a href="#">Users</a> </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
