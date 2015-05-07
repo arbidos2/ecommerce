@@ -18,9 +18,12 @@
 	vertical-align: top;
 }
 
+.side_nav input{
+	width: 100px;
+}
+
 .main{
 	width: 700px;
-	/*height: 700px;*/
 	padding: 10px;
 	border: 1px solid black;
 	display: inline-block;
@@ -50,6 +53,15 @@ a.show_all{
 	font-weight: bold;
 }
 
+p.title_number{
+	width: 25px;
+	height: 25px;
+	margin: 0px;
+	line-height: 30px;
+	text-align: center;
+	display: inline-block;
+}
+
 #selected_category{
 	margin: 20px 220px 0px 0px;
 	display: inline-block;
@@ -60,7 +72,16 @@ a.show_all{
 }
 
 #page{
-	margin-left: 100px;
+	width: 165px;
+	margin-left: 60px;
+}
+
+p.page_number{
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	text-align: center;
+	display: inline-block;
 }
 
 #sorted_by{
@@ -73,7 +94,8 @@ a.show_all{
 
 div.products{
 	width: 600px;
-	margin: 0 auto;
+	height: 150px;
+	margin: 5px auto;
 }
 
 .product img{
@@ -84,7 +106,9 @@ div.products{
 }
 
 .product{
-	margin: 20px 10px 20px 10px;
+	width: 100px;
+	height: 100px;
+	margin: 20px 5px 20px 5px;
 	text-align: center;
 	display: inline-block;
 }
@@ -94,6 +118,15 @@ div.products{
 }
 
 #pages{
-	width: 210px;
-	margin: 0 auto;
+	margin: 30px auto;
+	text-align: center;
+}
+
+#pages p{
+	display: inline-block;
+	font-size: 16px;
+}
+
+p.current_number{	
+	font-weight: bold;
 }

@@ -11,14 +11,33 @@ class Products extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('Product');
+		$categories = $this->Product->show_all_categories();
 		$products = $this->Product->get_all_products();
-		// var_dump($products);
-		$this->load->view('index', array('products' => $products));
+		$this->load->view('index', array(
+        	'products' => $products, 
+        	'categories' => $categories
+        								)
+        				);
 	}
 
-	public function show()
+	public function pagination($page)
 	{
-		$this->load->view('show');
+		$this->load->model('Product');
+		$categories = $this->Product->show_all_categories();
+		$products = $this->Product->get_all_products();
+		$this->load->view('all',  array(
+			'products' => $products, 
+			'current_page' => (int)$page, 
+			'categories' => $categories
+										)
+						);
+	}
+
+	public function show($product_id)
+	{
+		$this->load->model('Product');
+		$product = $this->Product->get_product($product_id);
+		$this->load->view('show', array('product' => $product));
 	}
 
 	public function getAll()
@@ -30,6 +49,37 @@ class Products extends CI_Controller {
 	{
 		$this->load->view('carts');
 	}
+
+    public function search_by_category($categories_id, $page)
+    {
+        $this->load->model('Product');
+        $categories = $this->Product->show_all_categories();
+        $products = $this->Product->search_by_category($categories_id);
+        $selected_category = $this->Product->show_category($categories_id);
+        $this->load->view('partial', array(
+        	'products' => $products, 
+        	'categories_id' => $categories_id, 
+        	'current_page' => (int)$page, 
+        	'categories' => $categories,
+        	'selected_category' => $selected_category
+        								)
+        				);
+    }
+
+    public function search_by_keyword($page)
+    {
+        $this->load->model('Product');
+        $categories = $this->Product->show_all_categories();
+        $keyword = $this->input->post('product_name');
+        $products = $this->Product->search_by_keyword($keyword);
+        $this->load->view('all', array(
+        	'products' => $products,
+        	'current_page' => (int)$page, 
+        	'categories' => $categories,
+        	'products' => $products
+        								)
+        				);
+    }
 }
 
 //end of main controller

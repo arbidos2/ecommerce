@@ -4,59 +4,51 @@
 	<title>Products</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+	<link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/index.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<script>
-                        $('.demo4_top,.demo4_bottom').bootpag({
-                            total: 50,
-                            page: 2,
-                            maxVisible: 5,
-                            leaps: true,
-                            firstLastUse: true,
-                            first: '<span aria-hidden="true">&larr;</span>',
-                            last: '<span aria-hidden="true">&rarr;</span>',
-                            wrapClass: 'pagination',
-                            activeClass: 'active',
-                            disabledClass: 'disabled',
-                            nextClass: 'next',
-                            prevClass: 'prev',
-                            lastClass: 'last',
-                            firstClass: 'first'
-                        }).on("page", function(event, num){
-                            $(".content4").html("Page " + num); // or some ajax content loading...
-                        }).find('.pagination');
-		
-	</script>
 </head>
 <body>
-<!-- -------------------------------------------------------------------- -->
-
-<!-- -------------------------------------------------------------------- -->
-
 	<div class="container">
 		<div class="header">
 			<h3 id="brand">Dojo eCommerce</h3>
 			<p id="cart_number">Shopping Cart (5)</p>
 		</div>
 		<div class="side_nav">
-			<form action="" method="post">
-				<input type="text" name="prodcut_name" placeholder="product name">
+			<form action="/products/search_by_keyword/1" method="post">
+				<input type="text" name="product_name" placeholder="product name">
+				<button>Search</button>
 			</form>
 			<h4>Categories</h4>
-			<a class="nav_category" href="t_shirts.php">T shirts (25)</a>
-			<a class="nav_category" href="shoes.php">Shoes (35)</a>
-			<a class="nav_category" href="cups.php">Cups (5)</a>
-			<a class="nav_category" href="fruits.php">Fruits (105)</a>
-			<a class="show_all" href="show_all.php"><i>Show All</i></a>
-		</div>
+			
+			<!-- Beginning of category display -->
+			<?php
+				foreach ($categories as $category){
+			?>
+
+			<a class="nav_category" href="/products/search/<?= $category['id']; ?>/1">
+				<?php
+					echo 
+						$category['name'] . 
+					" (" . 
+						$category['category_count'] . 
+					")";
+				?>
+			</a>				
+
+			<?php 
+				}
+			?>
+			<a class="nav_category" href="/products/pagination/1"><i><strong>Show All</strong></i></a>
+			<!-- End of category display -->
+		</div> <!-- End of side_nav -->
 		<div class="main">
 			<div class="title">
-				<div id="selected_category"><h3>T shirts (page 2)</h3></div>
+				<div id="selected_category"><h3>Show All (page1)</h3></div>
 				<div id="category_nav">
 					<div id="page">
-						<a href="first.php">first</a> | 
-						<a href="prev.php">prev</a> | 2 | 
-						<a href="next.php">next</a>
+						<a href="/products/pagination/1">first</a> | 
+						<a href="/products/pagination/1">prev</a> | 1 | 
+						<a href="/products/pagination/2">next</a>
 					</div>
 					<div id="sort">
 						<p id="sorted_by">Sorted by</p>
@@ -70,39 +62,45 @@
 					</div>
 				</div>
 			</div>
-			<div class="products">
 				<?php
-					foreach ($products as $product) {
-						echo '<div class="product">
-								<a href="/products/show">								
-									<img src="assets/image/' . $product['image_link'] . '" alt="prod_image">
-									<p>' . $product['name'] . '</p>
-								</a>
-							</div>';
+					$items_per_row = 5;
+					$num_rows = 3;
+					$num_pages = ceil(count($products) / ($num_rows * $items_per_row));
+
+					$row1 = array_slice($products, 0, $items_per_row);
+					$row2 = array_slice($products, 5, $items_per_row);
+					$row3 = array_slice($products, 10, $items_per_row);
+					$row4 = array_slice($products, 15, $items_per_row);
+					$rows=[$row1, $row2, $row3, $row4];
+					// var_dump($page);
+			for ($i = 0; $i < $num_rows; $i++){
+				echo
+			'<div class="products">';
+					foreach ($rows[$i] as $product) {
+						echo '
+				<div class="product">
+					<a href="/products/show/' . $product['id'] . '">								
+						<img src="' . $product['image_link'] . '" alt="prod_image">
+						<p>' . $product['id'] . '</p>
+						<p>' . $product['name'] . '</p>
+					</a>
+				</div>
+							';
 					}
-					// for ($i = 1; $i < 4; $i++){
-					// 	echo
-					// 	'<div id="row_' . $i . '">';
-					// 	for ($j = 1; $j < 6; $j++){
-					// 		echo 
-					// 		'<div class="product">
-					// 			<a href="/products/show">								
-					// 				<img src="assets/image/iwatch.png" alt="prod_image">
-					// 				<p>Apple Watch</p>
-					// 			</a>
-					// 		</div>';
-					// 	}
-					// 	echo '</div>';
-					// }
+				echo
+			'</div>';
+			}
 				?>
-			</div>
 			<div id="pages">
 				<?php
-					for ($i = 1; $i < 11; $i++){
-						echo '<a href="' . $i . '.php">' . $i . '</a> | ';
-					}
+					echo "
+						PREV | 
+						<p class='current_number'>1</p>";
+						for ($i = 2; $i < 11; $i++){
+							echo ' | <a href="/products/pagination/' . $i . '"><p class="page_number">' . $i . '</p></a>';
+						}
+				echo " | <a href='/products/pagination/11'>NEXT</a>"
 				?>
-				<a href="next.php">-></a>
 			</div> 
 		</div> <!-- End of main division -->
 	</div>

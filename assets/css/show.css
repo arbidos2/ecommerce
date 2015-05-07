@@ -20,19 +20,28 @@
 }
 
 #images{
-
 	display: inline-block;
 	vertical-align: top;
 }
 
+img#main_image{
+	max-width: 400px;
+	width: auto;
+	max-height: 400px;
+	height: auto;
+}
+
 .thumb_nails img{
-	width: 50px;
-	height: 50px;
+	max-width: 50px;
+	width: auto;
+	max-height: 50px;
+	height: auto;
+	margin: 5px;
 	display: inline-block;
 }
 
 #description{
-	width: 595px;
+	width: 500px;
 	height: 400px;
 	display: inline-block;
 	vertical-align: top;

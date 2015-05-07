@@ -21,21 +21,24 @@
 		<div class="main">
 			<div id="product_name">
 				<a href="/">Go Back</a>
-				<h2>Apple Watch</h2>
+				<h2><?= $product['name']; ?></h2>
 			</div>    
 			<div id="product_detail">
 				<div id="images">
-					<img src="<?= base_url(); ?>/assets/image/iWatch.png" alt="product_image">
+<?php
+	echo '
+					<img id="main_image" src="' . $product['image_link'] . '" alt="product_image">
 					<div class="thumb_nails">
-						<img src="<?= base_url(); ?>/assets/image/iWatch1.png" alt="thumb_nails">
-						<img src="<?= base_url(); ?>/assets/image/iWatch2.png" alt="thumb_nails">
-						<img src="<?= base_url(); ?>/assets/image/iWatch3.png" alt="thumb_nails">
-						<img src="<?= base_url(); ?>/assets/image/iWatch4.png" alt="thumb_nails">
-						<img src="<?= base_url(); ?>/assets/image/iWatch5.png" alt="thumb_nails">
-					</div>
+						<a href=""><img src="' . $product['image_link'] . '" alt="thumb_nails"></a>
+						<a href=""><img src="' . $product['image_link'] . '" alt="thumb_nails"></a>
+						<a href=""><img src="' . $product['image_link'] . '" alt="thumb_nails"></a>
+						<a href=""><img src="' . $product['image_link'] . '" alt="thumb_nails"></a>
+						<a href=""><img src="' . $product['image_link'] . '" alt="thumb_nails"></a>
+					</div>';
+?>
 				</div>
 				<div id="description">
-					<p>High-quality watches have long been defined by their ability to keep unfailingly accurate time, and Apple Watch is no exception. In conjunction with your iPhone, it keeps time within 50 milliseconds of the definitive global time standard. It even lets you customize your watch face to present time in a more meaningful, personal context that’s relevant to your life and schedule. Apple Watch makes all the ways you’re used to communicating more convenient. And because it sits right on your wrist, it can add a physical dimension to alerts and notifications. For example, you’ll feel a gentle tap with each incoming message. Apple Watch also lets you connect with your favorite people in fun, spontaneous ways — like sending a tap, a sketch, or even your heartbeat.</p>
+					<p><?= $product['description']; ?></p>
 				</div>
 				<form id="buy" action="" method="post">
 					<input type="number" min=0 value=1 name="quantity">
