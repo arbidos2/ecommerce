@@ -18,7 +18,7 @@
 			<p id="cart_number">Shopping Cart (5)</p>
 		</div>
 		<div class="side_nav">
-			<form action="/products/search_by_keyword/1" method="post">
+			<form action="/products/search/<?= $category['id']; ?>/1" method="post">
 				<input type="text" name="product_name" placeholder="product name">
 				<button>Search</button>
 			</form>

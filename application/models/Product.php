@@ -4,6 +4,17 @@ class Product extends CI_Model
 	
 	public function get_all_products()
     {
+            // SELECT products.id, products.name, categories.name AS category, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+            // FROM products
+            // LEFT JOIN products_categories
+            // ON products.id = products_categories.product_id
+            // LEFT JOIN categories
+            // ON products_categories.category_id = categories.id
+            // LEFT JOIN reviews
+            // ON products.id = reviews.product_id
+            // WHERE categories.id = 10
+            // GROUP BY products.id
+            // ORDER BY products.price DESC
         $query = "
             SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
             FROM products
