@@ -1,3 +1,7 @@
+<?php
+	setlocale(LC_MONETARY, 'en_US');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,6 +83,7 @@
 								<option>Price: Highest - Lowest</option>
 								<option>Price: Lowest - Highest</option>
 							</select>
+							<button>Sort</button>
 						</form>
 					</div>
 				</div>
@@ -96,8 +101,15 @@
 				<div class="product">
 					<a href="/products/show/' . $product['id'] . '">								
 						<img src="' . $product['image_link'] . '" alt="prod_image">
-						<p>' . $product['id'] . '</p>
 						<p>' . $product['name'] . '</p>
+						<p>' . money_format('%(#10n', $product['price']) . "\n" . '</p>						
+						<p>Rating: ';
+						if ($product['rating'] == null){
+							echo 'N/A';
+						} else {
+							echo $product['rating'];
+						}
+						echo '</p>
 					</a>
 				</div>
 			';

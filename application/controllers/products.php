@@ -33,22 +33,20 @@ class Products extends CI_Controller {
 						);
 	}
 
-	public function show($product_id)
-	{
-		$this->load->model('Product');
-		$product = $this->Product->get_product($product_id);
-		$this->load->view('show', array('product' => $product));
-	}
-
-	public function getAll()
-	{
-		
-	}
-
-	public function carts()
-	{
-		$this->load->view('carts');
-	}
+    public function search_by_keyword($page)
+    {
+        $this->load->model('Product');
+        $categories = $this->Product->show_all_categories();
+        $keyword = $this->input->post('product_name');
+        $products = $this->Product->search_by_keyword($keyword);
+        $this->load->view('all', array(
+        	'products' => $products,
+        	'current_page' => (int)$page, 
+        	'categories' => $categories,
+        	'products' => $products
+        								)
+        				);
+    }
 
     public function search_by_category($categories_id, $page)
     {
@@ -66,20 +64,26 @@ class Products extends CI_Controller {
         				);
     }
 
-    public function search_by_keyword($page)
+    public function sort_by($condition, $page)
     {
-        $this->load->model('Product');
-        $categories = $this->Product->show_all_categories();
-        $keyword = $this->input->post('product_name');
-        $products = $this->Product->search_by_keyword($keyword);
-        $this->load->view('all', array(
-        	'products' => $products,
-        	'current_page' => (int)$page, 
-        	'categories' => $categories,
-        	'products' => $products
-        								)
-        				);
+    	$this->load->model('Product');
+    	$categories = $this->Product->show_all_categories($condition);
+    	$condition = $this->input->post();
+    	$products = $this->Product->sort_by();
+    	$this->load->view('all', array(
+    		'categories' => $categories,
+    		'current_page' => (int)$page,
+    		'products' => $products
+    								)
+    					);
     }
+
+	public function show($product_id)
+	{
+		$this->load->model('Product');
+		$product = $this->Product->get_product($product_id);
+		$this->load->view('show', array('product' => $product));
+	}
 }
 
 //end of main controller

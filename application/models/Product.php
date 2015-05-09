@@ -4,7 +4,13 @@ class Product extends CI_Model
 	
 	public function get_all_products()
     {
-        $query = "SELECT * FROM products";
+        $query = "
+            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+            FROM products
+            LEFT JOIN reviews
+            ON products.id = reviews.product_id
+            GROUP BY products.id
+            ";
         return $this->db->query($query)->result_array();
     }
 
@@ -24,20 +30,30 @@ class Product extends CI_Model
     public function search_by_category($categories_id)
     {
         $query = "
-            SELECT products.id, products.name, categories.name AS category, products.image_link
+            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
             FROM products
             LEFT JOIN products_categories
             ON products.id = products_categories.product_id
+            LEFT JOIN reviews
+            ON products.id = reviews.product_id
             LEFT JOIN categories
             ON products_categories.category_id = categories.id
-            WHERE categories.id = ?
+            WHERE categories.id = $categories_id
+            GROUP BY products.name
             ";
-        return $this->db->query($query, $categories_id)->result_array();
+        return $this->db->query($query)->result_array();
     }
 
     public function search_by_keyword($keyword)
     {
-        $query = "SELECT * FROM products WHERE name like '%$keyword%'";
+        $query = "
+            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+            FROM products
+            LEFT JOIN reviews
+            ON products.id = reviews.product_id
+            WHERE name like '%$keyword%'
+            GROUP BY products.id
+                ";
         return $this->db->query($query)->result_array();
     }
 
@@ -60,6 +76,19 @@ class Product extends CI_Model
     {
         $query = "SELECT name FROM categories WHERE id = ?";
         return $this->db->query($query, $categories_id)->row_array();
+    }
+
+    public function sort_by()
+    {
+        $query = "
+            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+            FROM products
+            LEFT JOIN reviews
+            ON products.id = reviews.product_id
+            GROUP BY products.name
+            ORDER BY rating DESC
+                ";
+        return $this->db->query($query)->result_array();
     }
 }
 ?>

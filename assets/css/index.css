@@ -63,25 +63,14 @@ p.title_number{
 }
 
 #selected_category{
-	margin: 20px 220px 0px 0px;
-	display: inline-block;
-}
-
-#category_nav{
+	width: 250px;
+	margin: 20px 120px 0px 0px;
 	display: inline-block;
 }
 
 #page{
 	width: 165px;
-	margin-left: 60px;
-}
-
-p.page_number{
-	width: 20px;
-	height: 20px;
-	margin: 0px;
-	text-align: center;
-	display: inline-block;
+	margin-left: 55px;
 }
 
 #sorted_by{
@@ -92,10 +81,22 @@ p.page_number{
 	display: inline-block;
 }
 
+#category_nav{
+	display: inline-block;
+}
+
+p.page_number{
+	width: 20px;
+	height: 20px;
+	margin: 0px;
+	text-align: center;
+	display: inline-block;
+}
+
 div.products{
 	width: 600px;
-	height: 150px;
-	margin: 5px auto;
+	height: 180px;
+	margin: 0px auto;
 }
 
 .product img{
