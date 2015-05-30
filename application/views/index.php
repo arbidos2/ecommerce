@@ -1,4 +1,4 @@
-<?php
+	<?php
 	setlocale(LC_MONETARY, 'en_US');
 ?>
 
@@ -18,7 +18,8 @@
 			<p id="cart_number">Shopping Cart (5)</p>
 		</div>
 		<div class="side_nav">
-			<form action="/products/search/<?= $category['id']; ?>/1" method="post">
+			<form action="/products/search/0/1" method="post">
+			<!-- Default search option is to search among all products -->
 				<input type="text" name="product_name" placeholder="product name">
 				<button>Search</button>
 			</form>
@@ -44,7 +45,7 @@
 			<?php 
 				}
 			?>
-			<a class="nav_category" href="/products/pagination/1"><i><strong>Show All</strong></i></a>
+			<a class="nav_category" href="/products/search/0/1"><i><strong>Show All</strong></i></a>
 			<!-- End of category display -->
 		</div> <!-- End of side_nav -->
 		<div class="main">
@@ -58,10 +59,10 @@
 							$items_per_page = $items_per_row * $num_rows;
 							$num_pages = ceil(count($products) / ($num_rows * $items_per_row));
 						?>
-						<a href="/products/pagination/1">first</a> | 
-						<a href="/products/pagination/1">prev</a> | <p class="page_number">1</p> | 
-						<a href="/products/pagination/2">next</a> | 
-						<a href="/products/pagination/<?= $num_pages; ?>">last</a>
+						<a href="/products/search/0/1">first</a> | 
+						<a href="/products/search/0/1">prev</a> | <p class="page_number">1</p> | 
+						<a href="/products/search/0/2">next</a> | 
+						<a href="/products/search/0/<?= $num_pages; ?>">last</a>
 					</div>
 					<div id="sort">
 						<p id="sorted_by">Sorted by</p>
@@ -114,9 +115,9 @@
 						PREV | 
 						<p class='current_number'>1</p>";
 						for ($i = 2; $i < 11; $i++){
-							echo ' | <a href="/products/pagination/' . $i . '"><p class="page_number">' . $i . '</p></a>';
+							echo ' | <a href="/products/search/0/' . $i . '"><p class="page_number">' . $i . '</p></a>';
 						}
-				echo " | <a href='/products/pagination/11'>NEXT</a>"
+				echo " | <a href='/products/search/0/11'>NEXT</a>"
 				?>
 			</div> 
 		</div> <!-- End of main division -->

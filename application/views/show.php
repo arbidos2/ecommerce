@@ -20,7 +20,7 @@
 		</div>
 		<div class="main">
 			<div id="product_name">
-				<a href="/">Go Back</a>
+				<a href="/products/search/<?= $product['category_id']; ?>/<?= $previous_page; ?>">Go Back</a>
 				<h2><?= $product['name']; ?></h2>
 			</div>    
 			<div id="product_detail">
@@ -47,17 +47,18 @@
 			</div>
 			<div id="similar_products">
 				<h2>Similar Items</h2>
-				<?php
-				for ($j = 1; $j < 9; $j++){
-				echo 
-				'<div class="product">
-					<a href="/products/show">								
-						<img src="' . base_url() . '/assets/image/iWatch.png" alt="similar_products">
-						<p>Apple Watch</p>
+		<?php
+			foreach ($similar_products as $similar_product) {
+		?>
+				<div class="product">
+					<a href="/products/show/<?= $similar_product['id']; ?>">				 				
+						<img src="<?= $similar_product['image_link']; ?>" alt="similar_products">
+						<p><?= $similar_product['name']; ?></p>
 					</a>
-				</div>';
-				}
-				?>
+				</div>
+		<?php
+			}
+		?>
 			</div>
 		</div>
 	</div>

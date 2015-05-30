@@ -18,7 +18,7 @@
 			<p id="cart_number">Shopping Cart (5)</p>
 		</div>
 		<div class="side_nav">
-			<form action="/products/search_by_keyword/1" method="post">
+			<form action="/products/search/<?= $categories_id; ?>/1" method="post">
 				<input type="text" name="product_name" placeholder="product name">
 				<button>Search</button>
 			</form>
@@ -42,12 +42,28 @@
 			<?php 
 				}
 			?>
-			<a class="nav_category" href="/products/pagination/1"><i><strong>Show All</strong></i></a>
+			<a class="nav_category" href="/products/search/0/1"><i><strong>Show All</strong></i></a>
 			<!-- End of category display -->
 		</div> <!-- End of side_nav -->
 		<div class="main">
 			<div class="title">
-				<div id="selected_category"><h3><?= $selected_category['name']; ?> (page<?= "<p class='title_number'>" . $current_page . "</p>"; ?>)</h3></div>
+				<div id="selected_category">
+					<h3>
+						<?php
+							if ($categories_id == 0){
+								echo "<h3>Show All (page<p class='title_number'>" . 
+								$current_page . 
+								"</p>)</h3>";
+							} else {
+								echo 
+								$selected_category['name'] . 
+								"(page<p class='title_number'>" . 
+							 	$current_page . 
+							 	"</p>)";
+							}
+						?>
+					</h3>
+				</div>
 				<div id="category_nav">
 					<div id="page">
 						<a href="/products/search/<?= $categories_id; ?>/1">first</a> | 
@@ -77,7 +93,7 @@
 					</div>
 					<div id="sort">
 						<p id="sorted_by">Sorted by</p>
-						<form id="dropdown" action="" method="post">
+						<form id="dropdown" action="/products/search/<?= $categories_id; ?>/1" method="post">
 							<select name="sort">
 								<option>Most Popular</option>
 								<option>Price: Highest - Lowest</option>
@@ -89,34 +105,38 @@
 				</div>
 			</div>
 <?php
-	for ($i = 0; $i < $num_pages * $num_rows; $i++){
-		$rows[] = array_slice($products, (($current_page - 1) * $items_per_page) + ($items_per_row * $i), $items_per_row);
-	}
-	for ($i = 0; $i < $num_rows; $i++){
-		echo '
-			<div class="products">
-			';
-					foreach ($rows[$i] as $product) {
-		echo '
-				<div class="product">
-					<a href="/products/show/' . $product['id'] . '">								
-						<img src="' . $product['image_link'] . '" alt="prod_image">
-						<p>' . $product['name'] . '</p>
-						<p>' . money_format('%(#10n', $product['price']) . "\n" . '</p>						
-						<p>Rating: ';
-						if ($product['rating'] == null){
-							echo 'N/A';
-						} else {
-							echo $product['rating'];
-						}
-						echo '</p>
-					</a>
-				</div>
-			';
-					}
-		echo
-			'</div>';
-			}
+	if (!$products){ // If the query returns no products, display a message.
+		echo "Sorry. There is no matching result";
+	} else {
+		for ($i = 0; $i < $num_pages * $num_rows; $i++){
+			$rows[] = array_slice($products, (($current_page - 1) * $items_per_page) + ($items_per_row * $i), $items_per_row);
+		}
+		for ($i = 0; $i < $num_rows; $i++){
+			echo '
+				<div class="products">
+				';
+			foreach ($rows[$i] as $product) {
+			echo '
+					<div class="product">
+						<a href="/products/show/' . $product['id'] . '">								
+							<img src="' . $product['image_link'] . '" alt="prod_image">
+							<p>' . $product['name'] . '</p>
+							<p>' . money_format('%(#10n', $product['price']) . "\n" . '</p>						
+							<p>Rating: ';
+							if ($product['rating'] == null){
+								echo 'N/A';
+							} else {
+								echo $product['rating'];
+							}
+							echo '</p>
+						</a>
+					</div>
+				';
+			} // End of Foreach loop
+			echo
+				'</div>';
+		} // End of For loop
+	} // End of IF and ELSE statement
 ?>
 			<div id="pages"> <!-- Page navigation buttons at the bottom -->
 <?php

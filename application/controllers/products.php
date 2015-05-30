@@ -20,40 +20,20 @@ class Products extends CI_Controller {
         				);
 	}
 
-	public function pagination($page)
-	{
-		$this->load->model('Product');
-		$categories = $this->Product->show_all_categories();
-		$products = $this->Product->get_all_products();
-		$this->load->view('all',  array(
-			'products' => $products, 
-			'current_page' => (int)$page, 
-			'categories' => $categories
-										)
-						);
-	}
-
-    public function search_by_keyword($page)
+    // Unfixed bugs:
+    // 1) When users search with some keywords in Show All page and try to go to different category pages, no products are displayed.
+    // 2) when multiple pages are displayed for a search result, users cannot go to other pages of the search result.
+    public function search($categories_id, $page)
     {
         $this->load->model('Product');
         $categories = $this->Product->show_all_categories();
-        $keyword = $this->input->post('product_name');
-        $products = $this->Product->search_by_keyword($keyword);
-        $this->load->view('all', array(
-        	'products' => $products,
-        	'current_page' => (int)$page, 
-        	'categories' => $categories,
-        	'products' => $products
-        								)
-        				);
-    }
-
-    public function search_by_category($categories_id, $page)
-    {
-        $this->load->model('Product');
-        $categories = $this->Product->show_all_categories();
-        $products = $this->Product->search_by_category($categories_id);
-        $selected_category = $this->Product->show_category($categories_id);
+        if ($this->input->post('product_name')){
+            $this->session->set_userdata('keyword', $this->input->post('product_name')); // Sets keyword to be what users posted
+        }
+        $condition = $this->input->post('sort'); // Sets conditions for sorting
+        $products = $this->Product->search($categories_id, $condition); // Passes condition, category_id, keyword to search method in product model
+        $selected_category = $this->Product->show_category($categories_id); // Displays the category name at the top of main
+        $this->session->set_userdata('page', $page); // Sets session data of page for users to revisit when Go Back button is clicked
         $this->load->view('partial', array(
         	'products' => $products, 
         	'categories_id' => $categories_id, 
@@ -64,25 +44,15 @@ class Products extends CI_Controller {
         				);
     }
 
-    public function sort_by($condition, $page)
-    {
-    	$this->load->model('Product');
-    	$categories = $this->Product->show_all_categories($condition);
-    	$condition = $this->input->post();
-    	$products = $this->Product->sort_by();
-    	$this->load->view('all', array(
-    		'categories' => $categories,
-    		'current_page' => (int)$page,
-    		'products' => $products
-    								)
-    					);
-    }
-
 	public function show($product_id)
 	{
 		$this->load->model('Product');
 		$product = $this->Product->get_product($product_id);
-		$this->load->view('show', array('product' => $product));
+        $similar_category = $product['category_id'];
+        $selected_product = $product['id'];
+        $similar = $this->Product->show_similar($similar_category, $selected_product);
+        $page = $this->session->userdata('page'); // Sets previous page to be passed to the Go back link
+		$this->load->view('show', array('product' => $product, 'similar_products' => $similar, 'previous_page' => $page));
 	}
 }
 

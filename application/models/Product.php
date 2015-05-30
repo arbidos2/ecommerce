@@ -4,17 +4,6 @@ class Product extends CI_Model
 	
 	public function get_all_products()
     {
-            // SELECT products.id, products.name, categories.name AS category, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
-            // FROM products
-            // LEFT JOIN products_categories
-            // ON products.id = products_categories.product_id
-            // LEFT JOIN categories
-            // ON products_categories.category_id = categories.id
-            // LEFT JOIN reviews
-            // ON products.id = reviews.product_id
-            // WHERE categories.id = 10
-            // GROUP BY products.id
-            // ORDER BY products.price DESC
         $query = "
             SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
             FROM products
@@ -27,7 +16,15 @@ class Product extends CI_Model
 
 	public function get_product($product_id)
     {
-        $query = "SELECT * FROM products WHERE id = ?";
+        $query = "
+            SELECT products.id, products.name, categories.id AS category_id, products.description, products.price, products.image_link
+            FROM products
+            LEFT JOIN products_categories
+            ON products.id = products_categories.product_id
+            LEFT JOIN categories
+            ON products_categories.category_id = categories.id
+            WHERE products.id = $product_id
+                ";
         return $this->db->query($query, array($product_id))->row_array();
     }
 
@@ -38,33 +35,133 @@ class Product extends CI_Model
         return $this->db->query($query, $values);
     }
 
-    public function search_by_category($categories_id)
+    public function search($categories_id, $condition)
     {
-        $query = "
-            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
-            FROM products
-            LEFT JOIN products_categories
-            ON products.id = products_categories.product_id
-            LEFT JOIN reviews
-            ON products.id = reviews.product_id
-            LEFT JOIN categories
-            ON products_categories.category_id = categories.id
-            WHERE categories.id = $categories_id
-            GROUP BY products.name
+        // Prevents previous category stored in session from being updated
+        if (!$this->session->userdata('previous')){
+            $this->session->set_userdata('previous', $categories_id);
+        }
+        // If category changes because user clicks on different category, then set keyword equal to null.
+        if ($this->session->userdata('previous') !== $categories_id){
+            $keyword = "";
+            $this->session->unset_userdata('keyword');
+        } else {
+            $keyword = $this->session->userdata('keyword');
+        }
+        // $categories_id is set to be 0 when Show All is clicked.
+        if ($categories_id == 0 && !$condition){
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id > $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.id
             ";
-        return $this->db->query($query)->result_array();
-    }
-
-    public function search_by_keyword($keyword)
-    {
-        $query = "
-            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
-            FROM products
-            LEFT JOIN reviews
-            ON products.id = reviews.product_id
-            WHERE name like '%$keyword%'
-            GROUP BY products.id
+        } else if ($categories_id == 0 && $condition == "Most Popular"){ // Set the query to return products in order by ratings.
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id > $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY rating DESC
+            ";
+        } else if ($categories_id == 0 && $condition == "Price: Highest - Lowest"){
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id > $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY products.price DESC
+            ";
+        } else if ($categories_id == 0 && $condition == "Price: Lowest - Highest"){
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id > $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY products.price ASC
+            ";
+        } else if ($categories_id !== 0 && $condition == "Most Popular") {
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id = $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY rating DESC
                 ";
+        }  else if ($categories_id !== 0 && $condition == "Price: Highest - Lowest") {
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id = $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY products.price DESC
+                ";
+        }  else if ($categories_id !== 0 && $condition == "Price: Lowest - Highest") {
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id = $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ORDER BY products.price ASC
+                ";
+        } else {
+            $query = "
+                SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, categories.name AS category, products.image_link
+                FROM products
+                LEFT JOIN products_categories
+                ON products.id = products_categories.product_id
+                LEFT JOIN reviews
+                ON products.id = reviews.product_id
+                LEFT JOIN categories
+                ON products_categories.category_id = categories.id
+                WHERE categories.id = $categories_id AND products.name LIKE '%$keyword%'
+                GROUP BY products.name
+                ";
+        }
+        // Refreshes session of previous category
+        $this->session->set_userdata('previous', $categories_id);
         return $this->db->query($query)->result_array();
     }
 
@@ -89,15 +186,21 @@ class Product extends CI_Model
         return $this->db->query($query, $categories_id)->row_array();
     }
 
-    public function sort_by()
+    public function show_similar($similar_category, $selected_product)
     {
         $query = "
-            SELECT products.id, products.name, products.price, round(avg(reviews.rating), 1) AS rating, products.image_link
+            SELECT products.id, products.name, categories.name AS category, round(avg(reviews.rating), 1) AS rating, products.price, products.image_link
             FROM products
+            LEFT JOIN products_categories
+            ON products.id = products_categories.product_id
+            LEFT JOIN categories
+            ON products_categories.category_id = categories.id
             LEFT JOIN reviews
             ON products.id = reviews.product_id
-            GROUP BY products.name
+            WHERE categories.id = $similar_category AND products.id != $selected_product
+            GROUP BY products.id
             ORDER BY rating DESC
+            LIMIT 0, 8
                 ";
         return $this->db->query($query)->result_array();
     }
